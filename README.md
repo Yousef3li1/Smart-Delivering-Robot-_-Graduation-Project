@@ -252,7 +252,7 @@ We welcome contributions! Please follow these steps:
 
 ## 📧 Contact  
 For any inquiries or support, feel free to reach out:  
-- **👤 Team Members:** Ahmad Muhammad El-Sayed, Pavli Bahaa Botrus, Yousef Ali Abdallah, Amr Ashraf Fawzy, Abdelrahman Ahmed Mohamed, Ahmed Saad El-Menawy  
+- **👤 Team Members:** Yousef Ali Abdallah, Ahmad Muhammad El-Sayed, Pavli Bahaa Botrus, Amr Ashraf Fawzy, Abdelrahman Ahmed Mohamed, Ahmed Saad El-Menawy  
 - **👨‍🏫 Advisors:** Dr. Omar Shalash, Eng. Mohamed El-Sayed  
 - **🏫 Institution:** Arab Academy for Science, Technology & Maritime Transport  
 
