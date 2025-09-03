@@ -1,5 +1,14 @@
 # 🚀 AUCTUS: Smart Delivering Robot - Graduation Project 🤖📦
 
+<div align="center">
+  <img src="https://img.shields.io/badge/Status-Completed-brightgreen" alt="Status">
+  <img src="https://img.shields.io/badge/Platform-ROS%20Melodic-blue" alt="Platform">
+  <img src="https://img.shields.io/badge/Hardware-Arduino%20Mega-orange" alt="Hardware">
+  <img src="https://img.shields.io/badge/License-MIT-yellow" alt="License">
+</div>
+
+---
+
 ## 📌 Overview  
 **AUCTUS** is an **autonomous delivering robot** designed to address traditional logistics inefficiencies by providing **accurate navigation, eco-friendly delivery, and intelligent obstacle avoidance**. The robot operates via a **user-friendly mobile and web interface**, making it ideal for outdoor and indoor delivery applications. This project was developed as part of our graduation project and aims to contribute to the future of autonomous delivery.
 
@@ -40,27 +49,55 @@
 
 ---
 
-## 2️⃣ Install Required Libraries and Dependencies
-ROS Melodic: Install on Ubuntu 18.04 using ROS installation guide:
-bash
-Copy
-Edit
+## 🚀 Installation & Setup
+
+### 1️⃣ Prerequisites
+```bash
+Ubuntu 18.04 LTS
+ROS Melodic
+Arduino IDE 1.8+
+Git
+```
+
+### 2️⃣ Install Required Libraries and Dependencies
+**ROS Melodic:** Install on Ubuntu 18.04 using ROS installation guide:
+```bash
 sudo apt update && sudo apt install ros-melodic-desktop-full
-Arduino Libraries:
-bash
-Copy
-Edit
-Arduino Library Manager → Install "Adafruit 9-DOF IMU"
-Arduino Library Manager → Install "Motor Driver"
-## 3️⃣ Upload the Code
-Connect the Arduino Mega and upload the main_controller.ino.
-## 4️⃣ Hardware Setup
-Component	Connection Pins
-LiDAR A1M8	UART (TX → RX, RX → TX)
-Motors with Encoders	Motor driver connected to PWM pins
-9-DOF IMU	I2C interface
-Battery	Connected to main power rail
-Touch Screen & Lights	Power and data pins
+```
+
+**Arduino Libraries:**
+```bash
+# Arduino Library Manager → Install:
+# - "Adafruit 9-DOF IMU"
+# - "Motor Driver"
+```
+
+### 3️⃣ Clone and Build
+```bash
+# Clone the repository
+git clone https://github.com/yourusername/auctus-delivery-robot.git
+cd auctus-delivery-robot
+
+# Build ROS workspace
+cd catkin_ws
+catkin_make
+source devel/setup.bash
+```
+
+### 4️⃣ Upload the Code
+Connect the Arduino Mega and upload the `main_controller.ino`.
+
+### 5️⃣ Hardware Setup
+| **Component** | **Connection Pins** |
+|---------------|-------------------|
+| LiDAR A1M8 | UART (TX → RX, RX → TX) |
+| Motors with Encoders | Motor driver connected to PWM pins |
+| 9-DOF IMU | I2C interface |
+| Battery | Connected to main power rail |
+| Touch Screen & Lights | Power and data pins |
+
+---
+
 ## 📌 How It Works  
 
 ### 🔍 Step 1: Initial Setup  
@@ -79,6 +116,48 @@ Touch Screen & Lights	Power and data pins
 
 ### 🔍 Step 5: Return to Base  
 - After successful delivery, the robot **autonomously returns** to its base station for charging or standby mode.  
+
+---
+
+## 🚀 Usage
+
+### Launch the System
+```bash
+# Terminal 1: Start ROS Core
+roscore
+
+# Terminal 2: Launch robot hardware interface
+roslaunch auctus_robot robot.launch
+
+# Terminal 3: Start navigation system
+roslaunch auctus_navigation navigation.launch
+
+# Terminal 4: Launch web interface
+rosrun auctus_web web_server.py
+```
+
+### Access Web Interface
+- **Local:** `http://localhost:8080`
+- **Demo:** `http://www.cai.aast.edu/auctus`
+
+### Basic API Usage
+```python
+from auctus_robot import DeliveryRobot
+
+# Initialize robot
+robot = DeliveryRobot()
+
+# Set destination
+robot.set_destination(x=10.0, y=5.0, theta=0.0)
+
+# Start delivery
+robot.start_delivery()
+
+# Check status
+status = robot.get_status()
+print(f"Position: {status['position']}")
+print(f"Battery: {status['battery']}%")
+```
 
 ---
 
@@ -107,11 +186,66 @@ The system was tested in various indoor and outdoor settings. The results show:
 
 ---
 
+## 🚧 Troubleshooting
+
+### Common Issues
+```bash
+# LiDAR connection problems
+sudo chmod 666 /dev/ttyUSB0
+dmesg | tail
+
+# ROS nodes not communicating
+rosnode list
+rostopic list
+roscore  # Restart if needed
+
+# Navigation issues
+rosrun rviz rviz  # Visualize in RViz
+rosparam get /move_base/  # Check parameters
+
+# Arduino communication
+ls /dev/tty*  # List serial ports
+```
+
+---
+
 ## 🛠️ Future Improvements  
 🔹 **AI-powered Path Planning:** Use **machine learning** to predict and optimize delivery routes.  
 🔹 **Solar Charging:** Integrate **solar panels** for improved energy efficiency.  
 🔹 **Mobile App Integration:** Provide real-time updates through a **dedicated app**.  
 🔹 **Payload Capacity:** Expand the storage to **handle larger deliveries**.  
+
+---
+
+## 📂 Project Structure
+```
+auctus-delivery-robot/
+├── catkin_ws/
+│   ├── src/
+│   │   ├── auctus_robot/          # Main robot package
+│   │   ├── auctus_navigation/     # Navigation algorithms
+│   │   ├── auctus_web/           # Web interface
+│   │   └── auctus_msgs/          # Custom messages
+│   └── build/
+├── arduino/
+│   ├── main_controller/          # Arduino main code
+│   └── libraries/                # Required libraries
+├── docs/                         # Documentation
+├── tests/                        # Test scripts
+├── config/                       # Configuration files
+└── README.md
+```
+
+---
+
+## 🤝 Contributing
+We welcome contributions! Please follow these steps:
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
 
 
 ---
@@ -119,6 +253,12 @@ The system was tested in various indoor and outdoor settings. The results show:
 ## 📧 Contact  
 For any inquiries or support, feel free to reach out:  
 - **👤 Team Members:** Ahmad Muhammad El-Sayed, Pavli Bahaa Botrus, Yousef Ali Abdallah, Amr Ashraf Fawzy, Abdelrahman Ahmed Mohamed, Ahmed Saad El-Menawy  
-- **Advisors:** Dr. Omar Shalash, Eng. Mohamed El-Sayed  
-- **🌍 Web Interface:** [AUCTUS](http://www.cai.aast.edu/auctus)  
+- **👨‍🏫 Advisors:** Dr. Omar Shalash, Eng. Mohamed El-Sayed  
+- **🏫 Institution:** Arab Academy for Science, Technology & Maritime Transport  
 
+---
+
+<div align="center">
+  <p><strong>⭐ If you found this project helpful, please give it a star! ⭐</strong></p>
+  <p>Made with ❤️ by AUCTUS Team</p>
+</div>
